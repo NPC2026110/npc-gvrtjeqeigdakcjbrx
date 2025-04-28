@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NPC Secret</title>
+    <title>NPC</title>
     <style>
         body {
             background-color: #0d0d0d;
@@ -10,24 +10,46 @@
             font-family: 'Courier New', Courier, monospace;
             text-align: center;
             padding-top: 100px;
+            overflow: hidden;
         }
-        h1 {
+        #typing {
             font-size: 2.5em;
-        }
-        p {
-            font-size: 1.2em;
-            margin-top: 20px;
+            white-space: pre-wrap;
         }
         .hint {
             margin-top: 50px;
             font-style: italic;
             color: #888;
+            font-size: 1.2em;
+            opacity: 0;
+            transition: opacity 2s ease;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to NPC's Secret</h1>
-    <p>The journey has just begun...</p>
-    <p class="hint">Hint: NPC knows more than you think.</p>
+
+    <div id="typing"></div>
+    <p class="hint">Hint: 26 letters hide all answers.</p>
+
+    <script>
+        const text = "YOU SEEN IT BEFORE\nThe Jupiter...";
+        const typingElement = document.getElementById('typing');
+        const hintElement = document.querySelector('.hint');
+        let index = 0;
+
+        function typeWriter() {
+            if (index < text.length) {
+                typingElement.textContent += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 100); // 每个字母出现的速度，越小越快
+            } else {
+                // 打完字后让提示慢慢显现
+                hintElement.style.opacity = 1;
+            }
+        }
+
+        window.onload = typeWriter;
+    </script>
+
 </body>
 </html>
